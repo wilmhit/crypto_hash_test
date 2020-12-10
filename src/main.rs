@@ -2,6 +2,7 @@ use crypto::sha1::Sha1;
 use crypto::sha2::{Sha256, Sha512};
 use crypto::sha3::Sha3;
 use crypto::digest::Digest;
+use crypto::md5::Md5;
 use std::time::Instant;
 
 fn main() {
@@ -41,11 +42,9 @@ fn main() {
 }
 
 fn get_md5(text: &String) -> String {
-    use md5::{Md5, Digest};
     let mut hasher = Md5::new();
-    hasher.update(text.as_bytes())::::;
-    let buf = hasher.finalize();
-    return String::from_utf8_lossy(buf.as_slice()).into_owned();
+    hasher.input_str(text.as_str());
+    return hasher.result_str();
 }
 
 fn get_sha3_512(text: &String) -> String {
